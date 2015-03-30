@@ -9,7 +9,7 @@ Each branch includes a more complex Flask Application:
 
 **1. basic**: Basic Flask application with no additional modules
 
-**2. login**: Login page and user validation with Flask-Login
+**2. login**: Login page and user validation with _Flask-Login_ and _Flask-WTF_.
 
 **3. database-sqlite**: Connection to a _SQLite_ Database through _Flask-Alchemy_ ORM.
 
