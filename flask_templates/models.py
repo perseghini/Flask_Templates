@@ -12,10 +12,10 @@ class User(UserMixin):
 
     def is_valid_password(self, password):
 
-        # temporary password until DB:
-        hex_password = ('f95f676b24dbef39663486f756c8f0e7454bbb065aebbf962a'
-                        '900e1dd1e7f4693dda8146628ee85b10d55880dce063ffa6a4'
-                        '89d2953aa4dff53753555df3b95c')
+        # temporary password until DB (password = 'admin'):
+        hex_password = ('c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f2'
+                        '3f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a'
+                        '90c81f975113d6c7538dc69dd8de9077ec')
 
         encoded_password = password.encode('utf-8')
         return hashlib.sha512(encoded_password).hexdigest() == hex_password
