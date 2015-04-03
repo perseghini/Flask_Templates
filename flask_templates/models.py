@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from flask_templates import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 
 class User(UserMixin, db.Model):
@@ -8,6 +9,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True)
     hash_password = db.Column(db.String(66))
+    creation_date = db.Column(db.Date)
 
     def is_valid_password(self, password):
         """
@@ -48,6 +50,9 @@ class User(UserMixin, db.Model):
                 already used (False)
         """
         hash_password = generate_password_hash(password)
-        user = User(email=email, hash_password=hash_password)
+        user = User(email=email,
+                    hash_password=hash_password,
+                    creation_date=datetime.utcnow())
+
         db.session.add(user)
         db.session.commit()
