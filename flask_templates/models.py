@@ -10,6 +10,9 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), unique=True)
     hash_password = db.Column(db.String(66))
     creation_date = db.Column(db.Date)
+    test_field = db.Column(db.String(10))
+    test_field2 = db.Column(db.String(10), nullable=False,
+                            default='tmp', server_default='tmp')
 
     def is_valid_password(self, password):
         """
