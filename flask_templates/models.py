@@ -1,26 +1,55 @@
 from flask_login import UserMixin
-import hashlib
+from flask_templates import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class User(UserMixin):
+class User(UserMixin, db.Model):
     """ User Class, used to authentify users across the site."""
-    id = 0
-    email = 'placeholder@example.com'
-
-    def get_id(self):
-        return str(self.id)
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True)
+    hash_password = db.Column(db.String(66))
 
     def is_valid_password(self, password):
+        """
+        Check if user password match with the one in the DB.
 
-        # temporary password until DB (password = 'admin'):
-        hex_password = ('c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f2'
-                        '3f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a'
-                        '90c81f975113d6c7538dc69dd8de9077ec')
-
-        encoded_password = password.encode('utf-8')
-        return hashlib.sha512(encoded_password).hexdigest() == hex_password
+        :param password: User password.
+        """
+        return check_password_hash(self.hash_password, password)
 
     @staticmethod
-    def get(user_id):
-        """TODO replace with DB Get."""
-        return User()
+    def get_by_id(user_id):
+        """
+        Get a User in the DB by his ID.
+
+        :param user_id: user ID.
+        """
+        user = User.query.filter_by(id=user_id).first()
+        return user
+
+    @staticmethod
+    def get_by_email(user_email):
+        """
+        Get a User in the DB by his email.
+
+        :param user_email: user email.
+        """
+        user = User.query.filter_by(email=user_email).first()
+        return user
+
+    @staticmethod
+    def create(email, password):
+        """
+        Create a new user.
+
+        :param email: user email address.
+        :param password: user password.
+        """
+
+        # Check if the email is already used in the DB
+        # TODO
+
+        hash_password = generate_password_hash(password)
+        user = User(email=email, hash_password=hash_password)
+        db.session.add(user)
+        db.session.commit()

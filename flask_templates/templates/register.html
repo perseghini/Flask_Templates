@@ -5,7 +5,7 @@
       <div class="col-sm-6 col-md-4 col-md-offset-4">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <strong> Sign in</strong>
+            <strong> Create a new account</strong>
           </div>
           <div class="panel-body">
             <form role="form" action="#" method="POST">
@@ -36,7 +36,12 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      {{ form.remember_me }} <label for="remember_me">Remember Me</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="glyphicon glyphicon-lock"></i>
+                        </span>
+                        {{ form.confirm(class_='form-control', placeholder='Repeat Password') }}
+                      </div>
                     </div>
 
                       {% if form.errors %}
@@ -51,18 +56,13 @@
                         </div>
                       {% endif %}
                     <div class="form-group">
-                      <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+                      <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account">
                     </div>
                   </div>
                 </div>
-
               </fieldset>
             </form>
           </div>
-
-        </div>
-        <div>
-            <p>No Account? Register a new one <a href="{{ url_for('register') }}">here</a> !</p>
         </div>
       </div>
     </div>

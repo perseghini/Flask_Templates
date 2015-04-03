@@ -13,3 +13,11 @@ body { padding-top: 70px; }
 .errors {
     color: red;
 }
+
+.flash{
+    position: fixed;
+    left:2%;
+    top:90%;
+    font-size: xx-small;
+    color: darkgray;
+}
