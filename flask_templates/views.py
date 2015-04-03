@@ -1,11 +1,10 @@
 """ Views redirecting to the appropriate HTML file content. (Flask Routes) """
 
-from flask_templates import app, lm, db
+from flask_templates import app, lm
 from flask import render_template, flash, redirect, request, url_for, g
 from flask_login import login_required, login_user, logout_user, current_user
 from .forms import LoginForm, RegistrationForm
 from .models import User
-from werkzeug.security import generate_password_hash
 
 
 @app.before_request
@@ -43,6 +42,7 @@ def logout():
     """Logout the current user and redirect to the index page."""
     logout_user()
     return redirect(url_for('index'))
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

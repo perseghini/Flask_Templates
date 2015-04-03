@@ -17,10 +17,10 @@ class LoginForm(Form):
         user = User.get_by_email(form.login.data)
 
         if user is None:
-            raise ValidationError("Invalid user")
+            raise ValidationError('Invalid user')
 
         if not user.is_valid_password(form.password.data):
-            raise ValidationError("Invalid password")
+            raise ValidationError('Invalid password')
         form.user = user
         form.remember = form.remember_me.data
 
@@ -32,3 +32,9 @@ class RegistrationForm(Form):
         DataRequired(),
         EqualTo('confirm', 'Passwords must match')])
     confirm = PasswordField('confirm')
+
+    @staticmethod
+    def validate_login(form, field):
+        user = User.get_by_email(form.login.data)
+        if user is not None:
+            raise ValidationError('User already exists')

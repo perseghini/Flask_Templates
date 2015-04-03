@@ -44,11 +44,9 @@ class User(UserMixin, db.Model):
 
         :param email: user email address.
         :param password: user password.
+        :return if the user has been created (True) or if the email is
+                already used (False)
         """
-
-        # Check if the email is already used in the DB
-        # TODO
-
         hash_password = generate_password_hash(password)
         user = User(email=email, hash_password=hash_password)
         db.session.add(user)
